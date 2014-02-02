@@ -11,3 +11,5 @@ echo "File with tab" > "test-file with 	tab.txt"
 rm -rf "test-symlink-to-a-file.txt"
 
 ln -s "test-nonempty-file.txt" "test-symlink-to-a-file.txt"
+
+ln "test-nonempty-file.txt" "test-hardlink-to-a-file.txt"
