@@ -47,35 +47,14 @@ arls /home/user b
 This one is useful for identifying last modified files of an infected website.
 
 ~~~~ bash
-arls /home/user size
+arls /home/user mtime
 ~~~~
 
 
 is exactly the same as:
 
 ~~~~ bash
-arls /home/user s
-~~~~
-
-
-or
-
-~~~~ bash
-arls /home/user s
-~~~~
-
-
-or
-
-~~~~ bash
-arls /home/user bytes
-~~~~
-
-
-or
-
-~~~~ bash
-arls /home/user b
+arls /home/user m
 ~~~~
 
 
