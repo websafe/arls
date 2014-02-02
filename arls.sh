@@ -2,14 +2,16 @@
 
 # Advanced recursive ls
 
+#
 if [ -z "${1}" ];
 then
-    echo "Usage: ${0} <path> [[<order-by> [<order-direction>]]]";
+    echo "Usage: ${0} <path> [[<order-by> [<sort-order>]]]";
     exit 1;
 else
     path="${1}";
 fi;
 
+#
 if [ -z "${2}" ];
 then
     order_by="name";
@@ -17,11 +19,12 @@ else
     order_by="${2}";
 fi;
 
+#
 if [ -z "${3}" ];
 then
-    order_dir="asc";
+    sort_order="asc";
 else
-    order_dir="${3}";
+    sort_order="${3}";
 fi;
 
 #
@@ -61,7 +64,7 @@ case "${order_by}" in
 esac
 
 #
-case "${order_dir}" in
+case "${sort_order}" in
     "asc" | "a")
     	sort_param_order="";
     ;;
@@ -80,9 +83,12 @@ then
     (
 	cd ${path};
 	#
-	LANG="en_US.UTF-8" find ./ \
-	    -exec stat --printf "${sort_column}\t%F\t%y\t%a\t%U:%G\t%s\t%N\n" '{}' \; \
-    	    | sort ${sort_param_method} ${sort_param_order} \
+	LANG="en_US.UTF-8" \
+	    find ./ \
+		-exec \
+		    stat \
+			--printf "${sort_column}\t%F\t%y\t%a\t%U\t%G\t%s\t%n\n" '{}' \; \
+    	    | sort --ignore-case ${sort_param_method} ${sort_param_order} \
     	    | cut -f2-;
     );
 else
