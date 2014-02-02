@@ -29,7 +29,7 @@ fi;
 
 #
 case "${order_by}" in
-    "access-rights" | "rights")
+    "access-rights" | "rights" | "r")
     	sort_column="%a";
     	sort_param_method="-n"
     ;;
