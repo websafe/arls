@@ -28,6 +28,14 @@ else
 fi;
 
 #
+if [ -z "${4}" ];
+then
+    filtering_regexp=".*";
+else
+    filtering_regexp="${4}";
+fi;
+
+#
 case "${order_by}" in
     "access-rights" | "rights" | "r")
     	sort_column="%a";
@@ -87,9 +95,10 @@ then
 	    find ./ \
 		-exec \
 		    stat \
-			--printf "${sort_column}\t%F\t%y\t%a\t%U\t%G\t%s\t%n\n" '{}' \; \
+			--printf "${sort_column}%n*%F\t%y\t%a\t%U\t%G\t%s\t%n\n" '{}' \; \
     	    | sort --ignore-case ${sort_param_method} ${sort_param_order} \
-    	    | cut -f2-;
+    	    | cut -d'*' -f2- \
+    	    | grep -E "${filtering_regexp}";
     );
 else
     echo "MSG_DIR_NOT_FOUND: ${path}";
